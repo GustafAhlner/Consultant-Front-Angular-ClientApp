@@ -1,0 +1,171 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+  <div class="card-body" *ngIf="consultant">
+    <form novalidate (ngSubmit)="onSave()" [formGroup]="consultantForm">
+
+      <div class="consultant-image col-xs-12 col-md-8 col-lg-4  mb-2">
+        <img src="{{ consultant.imageURL }}"
+          class="card-img mx-auto d-block border border-secondary rounded" [alt]="consultant.nameFirst" />
+        <div class="imageButtons mb-2">
+          <button class="changeImage btn btn-info mr-3 " type="button" (click)="onChangePicture()">
+            Change
+          </button>
+          <button class="deleteImage btn btn-danger" type="button" (click)="onDeletePicture()">
+            Delete
+          </button>
+        </div>
+      </div>
+
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2" for="consultantNameFirstId">
+          Consultant First Name
+        </label>
+        <div class="col-md-8">
+          <input class="form-control" id="consultantNameFirstId" type="text" placeholder="First Name (Required)"
+            formControlName="nameFirst" [ngClass]="{'is-invalid':
+                 (consultantForm.get('nameFirst').touched
+                 || consultantForm.get('nameFirst').dirty)
+                 && !consultantForm.get('nameFirst').valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="consultantForm.get('nameFirst').errors?.required">
+              Please enter your first name.
+            </span>
+            <span *ngIf="consultantForm.get('nameFirst').errors?.minlength">
+              The first name must be longer than 3 characters.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2" for="consultantNameSecondId">
+          Consultant Last Name
+        </label>
+        <div class="col-md-8">
+          <input class="form-control" id="consultantNameSecondId" type="text" placeholder="Last Name (Required)"
+            formControlName="nameSecond" [ngClass]="{'is-invalid':
+                 (consultantForm.get('nameSecond').touched
+                 || consultantForm.get('nameSecond').dirty)
+                 && !consultantForm.get('nameSecond').valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="consultantForm.get('nameSecond').errors?.required">
+              Please enter your last name.
+            </span>
+            <span *ngIf="consultantForm.get('nameSecond').errors?.minlength">
+              The last name must be longer than 3 characters.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="emailId">Email</label>
+        <div class="col-md-8">
+          <input class="form-control" id="emailId" type="email" placeholder="Email (Required)" formControlName="email"
+            [ngClass]="{'is-invalid': (consultantForm.get('email').touched || consultantForm.get('email').dirty) && !consultantForm.get('email').valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="consultantForm.get('email').errors?.required">
+              Please enter your email.
+            </span>
+            <span *ngIf="consultantForm.get('email').errors?.email">
+              Please enter a valid email.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="telephoneId">Telephone:</label>
+        <div class="col-md-8">
+          <input class="form-control" id="telephoneId" type="tel" placeholder="Telephone (Required)"
+            formControlName="telephone"
+            [ngClass]="{'is-invalid': (consultantForm.get('telephone').touched || consultantForm.get('telephone').dirty) && !consultantForm.get('telephone').valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="consultantForm.get('telephone').errors?.required">
+              Please enter your phone number.
+            </span>
+            <span *ngIf="consultantForm.get('telephone').errors?.tel">
+              Please enter a valid phone number.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="col-md-2 col-form-label" for="birthDayId">Birthday:</label>
+        <div class="col-xs-12 col-md-5 col-lg-4 form-group">
+          <input class="form-control" id="birthDayId" #dpYMD="bsDatepicker" bsDatepicker formControlName="birthDate"
+            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
+        </div>
+      </div>
+
+      <div formArrayName="addresses" *ngFor="let address of
+          addresses.controls; let i=index">
+          <h3>Address {{i+1}}</h3>
+        <div [formGroupName]="i">
+          <div class="form-group row mb-2">
+            <label class="col-md-2 col-form-label" attr.for="{{'addressLine' + i}}">Address Line</label>
+            <div class="col-md-8">
+              <input class="form-control" id="{{'addressLine' + i}}" type="text" placeholder="Address Line"
+                formControlName="addressLine">
+            </div>
+          </div>
+          <div class="form-group row mb-2">
+            <label class="col-md-2 col-form-label" attr.for="{{'postalCodeId' + i}}">Postal Code</label>
+            <div class="col-md-2">
+              <input class="form-control" id="{{'postalCodeId' + i}}" type="text" placeholder="Postal Code"
+                formControlName="postalCode">
+            </div>
+            <label class="col-md-2 col-form-label" attr.for="{{'cityId' + i}}">City Name</label>
+            <div class="col-md-4">
+              <input class="form-control" id="{{'cityId' + i}}" type="text" placeholder="City Name"
+                formControlName="city">
+            </div>
+          </div>
+          <div class="form-group row mb-2">
+            <label class="col-md-2 col-form-label" attr.for="{{'countryRegionId' + i}}">Country/Region</label>
+            <div class="col-md-4">
+              <input class="form-control" id="{{'countryRegionId' + i}}" type="text" placeholder="Country or region"
+                formControlName="countryRegion">
+            </div>
+          </div>
+          <div class="form-group row mb-2">
+            <label class="col-md-2 col-form-label" attr.for="{{'comment' + i}}">Address Comment</label>
+            <div class="col-md-8">
+              <input class="form-control" id="{{'comment' + i}}" type="text" placeholder="Address Comment"
+                formControlName="comment">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row mb-2">
+        <div class="col-md-4">
+          <button class="btn btn-outline-primary" type="button" [disabled]="!addresses.valid" (click)="addAddress()">
+            Add Address
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group row mt-4">
+        <div class="">
+          <button class="btn btn-outline-secondary mr-3" type="button" style="width:80px" (click)="onBack()">
+            Back
+          </button>
+          <button class="btn btn-outline-danger  mr-3" type="button" style="width:80px" (click)="onDelete()">
+            Delete
+          </button>
+          <button class="btn btn-outline-primary" style="width:80px;" type="submit" [disabled]="!consultantForm.valid">
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+      <br>ConsultantForm Dirty: {{ consultantForm.dirty }}
+      <br>ConsultantForm Touched: {{ consultantForm.touched }}
+      <br>ConsultantForm Valid: {{ consultantForm.valid }}
+      <br>ConsultantForm value: {{ consultantForm.value | json }}
+  </div>
+</div>

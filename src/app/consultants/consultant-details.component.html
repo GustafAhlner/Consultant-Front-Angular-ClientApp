@@ -1,0 +1,71 @@
+<div class="card">
+  <div class="card-header" *ngIf="consultant">
+    {{pageTitle}}
+  </div>
+
+  <div class="card-body" *ngIf="consultant">
+    <div class="row mb-2">
+      <div class="col-md-4">
+        <img src="{{ consultant.imageURL }}" class="card-img mx-auto d-block" [alt]="consultant.nameFirst" />
+      </div>
+      <div class="col-md-8">
+        <div class="row mb-2">
+          <div class="col-md-3 detailsLabel">Name:</div>
+          <div class="col-md-6 detailsValue">{{consultant.nameFirst + " " + consultant.nameSecond}}</div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-3 detailsLabel">Birthdate:</div>
+          <div class="col-md-6 detailsValue">{{consultant.birthDate | date}}</div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-3 detailsLabel">Telephone:</div>
+          <a href="{{'tel:'+consultant.telephone}}" class="detailsValue col-md-6">{{consultant.telephone}}</a>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-3 detailsLabel">Email:</div>
+          <a href="{{'mailto:'+consultant.email}}" class="detailsValue col-md-6">{{consultant.email}}</a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <!--Addresses-->
+      <h3 *ngIf="consultant.addresses.length">Addresses</h3>
+      <div class="card-deck">
+        <div class="row">
+          <div class="card col-sm-12" *ngFor="let address of consultant.addresses">
+            <div class="card-body">
+              <div *ngIf="address.addressLine !=''">
+                <span>{{address.addressLine}}</span>
+              </div>
+              <div *ngIf="address.postalCode !=0" class="form-group">
+                <span>{{address.postalCode}}</span>
+              </div>
+              <div *ngIf="address.city !=''">
+                <span>{{address.city}}</span>
+              </div>
+              <div *ngIf="address.countryRegion !=''">
+                <span>{{address.countryRegion}}</span>
+              </div>
+              <div *ngIf="address.comment !=''" class="font-italic">
+                <span>{{address.comment}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row ml-3 mt-4">
+        <button class="btn btn-outline-secondary mr-3" style="width:80px" (click)="onBack()">
+          Back
+        </button>
+        <button class="btn btn-outline-primary" style="width:80px" [routerLink]="['/consultants/edit']"
+          [queryParams]="{id: consultant.consultantId}">
+          Edit
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    {{errorMessage}}
+  </div>
+</div>

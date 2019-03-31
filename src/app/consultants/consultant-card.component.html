@@ -1,0 +1,15 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="card bg-light col-sm-4">
+    <!-- <div class="card bg-light col-xs-12 col-sm-4 col-md-4"> -->
+  <img src="{{ consultant.imageURL }}" class="card-img-top mx-auto d-block mt-2"
+    [alt]="consultant.nameFirst" />
+  <div class="card-body text-center">
+    <h4 class="card-title m-0">{{consultant.nameFirst+ " " +consultant.nameSecond}}</h4>
+    <p class="card-text m-0">{{consultant.email}}</p>
+    <p class="card-text m-0">{{consultant.telephone}}</p>
+    <div>
+      <span (click)="onClickDetails()" class="btn btn-primary mr-1 mb-0">Details</span>
+      <span (click)="onClickEdit()" class="btn btn-primary mb-0">Edit</span>
+    </div>
+  </div>
+</div>

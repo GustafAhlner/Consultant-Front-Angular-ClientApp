@@ -1,0 +1,22 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="col-md-10 row">
+  <h1 class="col-md-10">
+   {{pageTitle}} 
+  </h1>
+  <div class="col-md-2">
+    <button class="btn btn-outline-primary"
+            [routerLink]="['/consultants/edit']"
+            [queryParams]="{id: 0}">
+      New Consultant
+    </button>
+  </div>
+</div>
+<div class="card-deck">
+  <div class="row">
+    <consultant-card *ngFor="let consultant of consultants"
+                     [consultant]="consultant"
+                     (detailsClicked)='onDetailsClicked($event)'
+                     (editClicked)='onEditClicked($event)'>
+    </consultant-card>
+  </div>
+</div>

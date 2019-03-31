@@ -1,0 +1,23 @@
+div.consultant-image {
+    /* position: relative;
+    float:left; */
+    margin:5px;
+}
+div.consultant-image:hover img{
+    opacity:0.75;
+}
+div.consultant-image:hover .imageButtons {
+    display: block;
+}
+div.consultant-image .imageButtons {
+    position:absolute;
+    display:none;
+    bottom:0;
+    left: 50%;
+}
+div.consultant-image .changeImage {
+    left:5px;
+}
+div.consultant-image .deleteImage {
+    right:5px;
+}
