@@ -1,6 +1,6 @@
 This repository contains a front-end application using Angular. The application connects to a Web API and uses Reactive Forms to allow CRUD operations with a consultants database.
 
--link to Web API Repo
+- [Consultant Web API Project](https://github.com/gustaf-a/Consultant-API-ASP.NET-Core-Solution)
 
 Please note that this repository is under construction and will be expanded.
 
