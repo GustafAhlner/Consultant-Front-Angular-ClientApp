@@ -57,7 +57,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
         component: ConsultantsListComponent,
       },
       { path: '', redirectTo: 'index', pathMatch: 'full' },
-      { path: '**', component: NotFoundComponent },
+      { path: 'notfound', component: NotFoundComponent },
+      { path: '**', component: NotFoundComponent }
     ])
   ],
   providers: [],

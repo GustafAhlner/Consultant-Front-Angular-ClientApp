@@ -1,22 +1,23 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of, throwError } from "rxjs"
-import { map, tap, catchError } from 'rxjs/operators';
+import { map, tap, catchError, retry } from 'rxjs/operators';
 import { Consultant } from "./consultant";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  private consultantsAPIURL = "/api/consultants";
+  private consultantsAPI = "api/consultants";
+  private hostAddress = "http://localhost:8888/";
+  private consultantsAPIURL = this.consultantsAPI + this.hostAddress;
 
   constructor(private http: HttpClient) {
   }
-  private hostAddress: string = "http://localhost:8888";
-  //""
 
   getAllConsultants(): Observable<Consultant[]> {
-    return this.http.get<Consultant[]>(this.hostAddress + this.consultantsAPIURL)
+    return this.http.get<Consultant[]>(this.consultantsAPIURL)
       .pipe(
         tap(data => console.log('getAllConsultants: ' + JSON.stringify(data))),
         catchError(this.errorHandler)
@@ -27,18 +28,14 @@ export class DataService {
     if (id === 0) {
       return of(this.newConsultant());
     }
-    let urlString: string = this.hostAddress + this.consultantsAPIURL + "/" + id;
+    let urlString: string = this.consultantsAPIURL + "/" + id;
     if (includeAddresses) { urlString = urlString + "?includeAddress=true"; }
     return this.http.get<Consultant>(urlString)
       .pipe(
-        tap(data => console.log('getConsultantByID: ' + JSON.stringify(data))),
+        retry(1),
+        //tap(data => console.log('getConsultantByID: ' + JSON.stringify(data))),
         catchError(this.errorHandler)
       );
-  }
-
-  private errorHandler(error) {
-    console.error(error);
-    return throwError(error.error.message);
   }
 
   newConsultant(): Consultant {
@@ -58,18 +55,18 @@ export class DataService {
     console.log('dataservice starting');
     const headers = new HttpHeaders({
        'Content-Type': 'application/json' });
-    return this.http.post<Consultant>(this.hostAddress + this.consultantsAPIURL,
+    return this.http.post<Consultant>(this.consultantsAPIURL,
        consultant, { headers: headers })
       .pipe(
-        tap(data => console.log('createConsultant: ' + JSON.stringify(data))),
+        retry(1),
+        //tap(data => console.log('createConsultant: ' + JSON.stringify(data))),
         catchError(this.errorHandler)
       );
   }
 
   updateConsultant(consultant: Consultant): Observable<Consultant> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    let urlString: string = this.hostAddress 
-    + this.consultantsAPIURL + "/" + consultant.consultantId;
+    let urlString: string = this.consultantsAPIURL + "/" + consultant.consultantId;
     return this.http.put<Consultant>(urlString, consultant, { headers: headers })
       .pipe(
         tap(() => console.log('updateConsultant: ' + consultant.consultantId)),
@@ -81,12 +78,26 @@ export class DataService {
 
   deleteConsultant(id: number): Observable<{}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    let urlString: string = this.hostAddress 
-    + this.consultantsAPIURL + "/" + id;
+    let urlString: string = this.consultantsAPIURL + "/" + id;
     return this.http.delete<Consultant>(urlString, { headers: headers })
       .pipe(
-        tap(data => console.log('deleteConsultant: ' + id)),
+        retry(1),
         catchError(this.errorHandler)
       );
   }
+
+  private errorHandler(theError) {
+    let errorMessage = '';
+    if (theError.error instanceof ErrorEvent) {
+      // client-side error
+      errorMessage = `Error: ${theError.error.message}`;
+    } else {
+      // server-side error
+      errorMessage = `Error Code: ${theError.status}: ${theError.body.error}`;
+    }
+    console.log(theError);
+    window.alert(errorMessage);
+    return throwError(errorMessage);
+  }
+
 }

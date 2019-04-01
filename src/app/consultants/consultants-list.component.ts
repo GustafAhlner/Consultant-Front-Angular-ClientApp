@@ -16,7 +16,7 @@ export class ConsultantsListComponent implements OnInit {
   public consultants: Consultant[];
   public consultantsNotFound: boolean = true;
   pageTitle: string = 'Consultant Index';
-  errorMessage: string;
+  errorMessage = '';
 
   constructor(private data: DataService, private router: Router) {}
 
@@ -26,7 +26,9 @@ export class ConsultantsListComponent implements OnInit {
       consultants => {
         this.consultants = consultants;
         },
-        error => this.errorMessage = <any>error
+        error => {this.errorMessage = <any>error;
+        console.log(this.errorMessage);
+      }
       );
   }
 
