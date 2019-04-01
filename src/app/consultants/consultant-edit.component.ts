@@ -109,10 +109,13 @@ export class ConsultantEditComponent implements OnInit, OnDestroy {
     });
     this.setConsultantFormAddresses(this.consultant.addresses);
   }
-  
+
   setConsultantFormAddresses(addresses: Address[]): void {
     this.addresses.removeAt(0);
     addresses.forEach(address => {
+      if (address.postalCode===0) {
+        address.postalCode=null;
+      }
       this.addresses.push(this.fb.group({
         addressLine: address.addressLine,
         postalCode: address.postalCode,
