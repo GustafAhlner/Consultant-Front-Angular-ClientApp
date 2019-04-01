@@ -30,14 +30,14 @@
     <div>
       <!--Addresses-->
       <h3 *ngIf="consultant.addresses.length">Addresses</h3>
-      <div class="card-deck">
+      <div class="card-group">
         <div class="row">
-          <div class="card col-sm-12" *ngFor="let address of consultant.addresses">
+          <div class="card col-sm-12 col-md-6 col-lg-4" *ngFor="let address of consultant.addresses">
             <div class="card-body">
               <div *ngIf="address.addressLine !=''">
                 <span>{{address.addressLine}}</span>
               </div>
-              <div *ngIf="address.postalCode !=0" class="form-group">
+              <div *ngIf="address.postalCode !=0">
                 <span>{{address.postalCode}}</span>
               </div>
               <div *ngIf="address.city !=''">
