@@ -8,6 +8,7 @@ Please note that this repository is under construction and will be expanded.
 
 - CRUD with reactive forms
 - Built-in validation for some fields
+- Birthdate picker
 - Dynamically added addresses a one-to-many relationship to consultants 
 
 ### Future plans:

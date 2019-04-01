@@ -44,6 +44,9 @@ export class ConsultantDetailsComponent implements OnInit {
   setConsultant(consultantFromDB: Consultant): void {
     this.consultant=consultantFromDB;
     this.consultant.imageURL= this.imageHandler.returnConsultantImageUrl(this.consultant.imageURL);
+    if (this.consultant.birthDate.toString() == '0001-01-01T00:00:00') {
+      this.consultant.birthDate = null;
+    }
   }
 
   onBack() {

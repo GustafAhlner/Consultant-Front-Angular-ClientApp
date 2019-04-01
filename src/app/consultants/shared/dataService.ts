@@ -11,7 +11,7 @@ import { Consultant } from "./consultant";
 export class DataService {
   private consultantsAPI = "api/consultants";
   private hostAddress = "http://localhost:8888/";
-  private consultantsAPIURL = this.consultantsAPI + this.hostAddress;
+  private consultantsAPIURL = this.hostAddress+ this.consultantsAPI ;
 
   constructor(private http: HttpClient) {
   }
