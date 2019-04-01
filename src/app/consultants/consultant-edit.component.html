@@ -12,11 +12,11 @@
       <div class="consultant-image col-xs-12 col-md-8 col-lg-6  mb-2">
         <img src="{{ consultant.imageURL }}" class="card-img mx-auto d-block border border-secondary rounded"
           [alt]="consultant.nameFirst" />
-        <div class="imageButtons mb-2">
-          <button class="changeImage btn btn-info mr-3 " type="button" (click)="onChangePicture()">
+        <div class="imageButtons">
+          <button class="changeImage btn btn-info mr-3 mb-2 " type="button" (click)="onChangePicture()">
             Change
           </button>
-          <button class="deleteImage btn btn-danger" type="button" (click)="onDeletePicture()">
+          <button class="deleteImage btn btn-danger mb-2" type="button" (click)="onDeletePicture()">
             Delete
           </button>
         </div>
