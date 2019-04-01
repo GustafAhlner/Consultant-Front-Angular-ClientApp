@@ -82,9 +82,6 @@ export class ConsultantEditComponent implements OnInit, OnDestroy {
   }
 
   displayConsultant(consultant: Consultant): void {
-    if (this.consultantForm) {
-      this.consultantForm.reset();
-    }
     this.consultant = consultant;
     this.consultant.imageURL =
             this.imageHandler.returnConsultantImageUrl(this.consultant.imageURL);
@@ -94,7 +91,13 @@ export class ConsultantEditComponent implements OnInit, OnDestroy {
     } else {
       this.pageTitle = `Edit Consultant: ${this.consultant.nameFirst} ${this.consultant.nameSecond}`;
     }
-
+    if (this.consultant.birthDate.toString() == '0001-01-01T00:00:00') {
+      this.consultant.birthDate = null;
+    }
+     
+    if (this.consultantForm) {
+      this.consultantForm.reset();
+    }
     // patchValue is used because setValue cannot be used with the address-array
     this.consultantForm.patchValue({
       nameFirst: this.consultant.nameFirst,
@@ -106,6 +109,7 @@ export class ConsultantEditComponent implements OnInit, OnDestroy {
     });
     this.setConsultantFormAddresses(this.consultant.addresses);
   }
+  
   setConsultantFormAddresses(addresses: Address[]): void {
     this.addresses.removeAt(0);
     addresses.forEach(address => {
