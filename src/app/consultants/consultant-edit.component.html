@@ -169,3 +169,8 @@
       <br>ConsultantForm value: {{ consultantForm.value | json }}
   </div>
 </div>
+
+<div *ngIf="errorMessage"
+     class="alert alert-danger">
+  Oh no! Error: {{ errorMessage }}
+</div>

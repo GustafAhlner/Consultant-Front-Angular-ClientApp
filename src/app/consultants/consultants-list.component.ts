@@ -27,7 +27,6 @@ export class ConsultantsListComponent implements OnInit {
         this.consultants = consultants;
         },
         error => {this.errorMessage = <any>error;
-        console.log(this.errorMessage);
       }
       );
   }

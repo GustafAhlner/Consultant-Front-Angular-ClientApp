@@ -87,16 +87,16 @@ export class DataService {
   }
 
   private errorHandler(theError) {
-    let errorMessage = '';
+    
+    let errorMessage: string;
+    console.error(theError);
     if (theError.error instanceof ErrorEvent) {
       // client-side error
-      errorMessage = `Error: ${theError.error.message}`;
+      errorMessage = `Error: ${theError.message}`;
     } else {
       // server-side error
-      errorMessage = `Error Code: ${theError.status}: ${theError.body.error}`;
+      errorMessage = `Error Code: ${theError.status}: ${theError.message}`;
     }
-    console.log(theError);
-    window.alert(errorMessage);
     return throwError(errorMessage);
   }
 

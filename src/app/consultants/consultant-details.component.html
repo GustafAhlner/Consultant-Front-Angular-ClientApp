@@ -65,7 +65,12 @@
       </div>
     </div>
   </div>
-  <div class="alert alert-danger" *ngIf="errorMessage">
-    {{errorMessage}}
+  <div *ngIf="errorMessage">
+    <div class="card-header">
+      Consultant Details
+    </div>
+    <div class="alert alert-danger">
+      Oh no! Error: {{ errorMessage }}
+    </div>
   </div>
 </div>
