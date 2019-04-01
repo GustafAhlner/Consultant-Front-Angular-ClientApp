@@ -2,12 +2,16 @@
   <div class="card-header">
     {{pageTitle}}
   </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    Oh no! Error: {{ errorMessage }}
+  </div>
+
   <div class="card-body" *ngIf="consultant">
     <form novalidate (ngSubmit)="onSave()" [formGroup]="consultantForm">
-
       <div class="consultant-image col-xs-12 col-md-8 col-lg-4  mb-2">
-        <img src="{{ consultant.imageURL }}"
-          class="card-img mx-auto d-block border border-secondary rounded" [alt]="consultant.nameFirst" />
+        <img src="{{ consultant.imageURL }}" class="card-img mx-auto d-block border border-secondary rounded"
+          [alt]="consultant.nameFirst" />
         <div class="imageButtons mb-2">
           <button class="changeImage btn btn-info mr-3 " type="button" (click)="onChangePicture()">
             Change
@@ -104,7 +108,7 @@
 
       <div formArrayName="addresses" *ngFor="let address of
           addresses.controls; let i=index">
-          <h3>Address {{i+1}}</h3>
+        <h3>Address {{i+1}}</h3>
         <div [formGroupName]="i">
           <div class="form-group row mb-2">
             <label class="col-md-2 col-form-label" attr.for="{{'addressLine' + i}}">Address Line</label>
@@ -163,14 +167,9 @@
         </div>
       </div>
     </form>
-      <br>ConsultantForm Dirty: {{ consultantForm.dirty }}
-      <br>ConsultantForm Touched: {{ consultantForm.touched }}
-      <br>ConsultantForm Valid: {{ consultantForm.valid }}
-      <br>ConsultantForm value: {{ consultantForm.value | json }}
+    <br>ConsultantForm Dirty: {{ consultantForm.dirty }}
+    <br>ConsultantForm Touched: {{ consultantForm.touched }}
+    <br>ConsultantForm Valid: {{ consultantForm.valid }}
+    <br>ConsultantForm value: {{ consultantForm.value | json }}
   </div>
-</div>
-
-<div *ngIf="errorMessage"
-     class="alert alert-danger">
-  Oh no! Error: {{ errorMessage }}
 </div>
