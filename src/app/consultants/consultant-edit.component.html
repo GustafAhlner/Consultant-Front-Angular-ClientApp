@@ -9,7 +9,7 @@
 
   <div class="card-body" *ngIf="consultant">
     <form novalidate (ngSubmit)="onSave()" [formGroup]="consultantForm">
-      <div class="consultant-image col-xs-12 col-md-8 col-lg-4  mb-2">
+      <div class="consultant-image col-xs-12 col-md-8 col-lg-6  mb-2">
         <img src="{{ consultant.imageURL }}" class="card-img mx-auto d-block border border-secondary rounded"
           [alt]="consultant.nameFirst" />
         <div class="imageButtons mb-2">
