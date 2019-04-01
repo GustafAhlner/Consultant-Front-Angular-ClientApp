@@ -27,12 +27,13 @@
         </div>
       </div>
     </div>
+
     <div>
       <!--Addresses-->
       <h3 *ngIf="consultant.addresses.length">Addresses</h3>
       <div class="card-group">
         <div class="row">
-          <div class="card col-sm-12 col-md-6 col-lg-4" *ngFor="let address of consultant.addresses">
+          <div class="card " *ngFor="let address of consultant.addresses">
             <div class="card-body">
               <div *ngIf="address.addressLine !=''">
                 <span>{{address.addressLine}}</span>
@@ -54,6 +55,7 @@
         </div>
       </div>
 
+      <!--Buttons-->
       <div class="row ml-3 mt-4">
         <button class="btn btn-outline-secondary mr-3" style="width:80px" (click)="onBack()">
           Back
