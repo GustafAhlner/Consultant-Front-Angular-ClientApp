@@ -33,7 +33,7 @@
       <h3 *ngIf="consultant.addresses.length">Addresses</h3>
       <div class="card-group">
         <div class="row">
-          <div class="card " *ngFor="let address of consultant.addresses">
+          <div class="card" *ngFor="let address of consultant.addresses">
             <div class="card-body">
               <div *ngIf="address.addressLine !=''">
                 <span>{{address.addressLine}}</span>

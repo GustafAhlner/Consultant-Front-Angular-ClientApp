@@ -13,28 +13,54 @@ import { Router } from '@angular/router';
   providers: [DataService]
 })
 export class ConsultantsListComponent implements OnInit {
+
   public consultants: Consultant[];
+  public consultantsFiltered: Consultant[];
   public consultantsNotFound: boolean = true;
   pageTitle: string = 'Consultant Index';
   errorMessage = '';
 
-  constructor(private data: DataService, private router: Router) {}
+  _filterString = '';
+  get filterString(): string {
+    return this._filterString;
+  }
+  set filterString(inputString: string) {
+    this._filterString = inputString;
+    this.consultantsFiltered = this.filterConsultants(this.filterString);
+  }
+
+  
+
+  constructor(private data: DataService, private router: Router) { }
+
+  filterConsultants(filterString: string): Consultant[] {
+    if (filterString == '') { return this.consultants }
+    filterString = filterString.toLocaleLowerCase();
+    return this.consultants.filter((consultant: Consultant) => 
+      (this.getConsultantFullName(consultant).toLocaleLowerCase().indexOf(filterString) !== -1 
+      ));
+  }
+  getConsultantFullName(consultant: Consultant): string {
+    return consultant.nameFirst + ' ' + consultant.nameSecond;
+  }
 
   ngOnInit() {
     this.data.getAllConsultants()
       .subscribe(
-      consultants => {
-        this.consultants = consultants;
+        consultants => {
+          this.consultants = consultants;
+          this.consultantsFiltered = this.consultants;
         },
-        error => {this.errorMessage = <any>error;
-      }
+        error => {
+        this.errorMessage = <any>error;
+        }
       );
   }
 
   onDetailsClicked(consultantId: string): void {
-    this.router.navigate(['consultants/details'], { queryParams: { id: consultantId }});
+    this.router.navigate(['consultants/details'], { queryParams: { id: consultantId } });
   }
-onEditClicked(consultantId: string): void {
-  this.router.navigate(['consultants/edit'], { queryParams: { id: consultantId }});
+  onEditClicked(consultantId: string): void {
+    this.router.navigate(['consultants/edit'], { queryParams: { id: consultantId } });
   }
 }
